@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Invisible Broadcast — Build a Crystal Radio</title>
+
+<style>
+:root{
+    --bg:#faf9f6;
+    --paper:#ffffff;
+    --ink:#1d1d1d;
+    --accent:#1f4b6e;
+    --accent-light:#dfeaf2;
+    --border:#d7d7d7;
+    --callout:#f5f7f9;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia, serif;
+    line-height:1.7;
+}
+
+header{
+    background:linear-gradient(135deg,#183850,#294f6d);
+    color:white;
+    padding:80px 40px;
+}
+
+header h1{
+    margin:0;
+    font-size:3rem;
+}
+
+header p{
+    max-width:800px;
+    font-size:1.15rem;
+    opacity:.95;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:var(--paper);
+    padding:50px;
+}
+
+h2{
+    color:var(--accent);
+    border-bottom:2px solid var(--accent-light);
+    padding-bottom:10px;
+    margin-top:60px;
+}
+
+h3{
+    color:var(--accent);
+    margin-top:40px;
+}
+
+.callout{
+    background:var(--callout);
+    border-left:5px solid var(--accent);
+    padding:20px;
+    margin:25px 0;
+}
+
+.parts-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.parts-table th{
+    background:var(--accent);
+    color:white;
+}
+
+.parts-table th,
+.parts-table td{
+    border:1px solid var(--border);
+    padding:12px;
+    text-align:left;
+}
+
+.diagram{
+    background:#f7f7f7;
+    border:1px solid #ddd;
+    padding:25px;
+    text-align:center;
+    font-family:monospace;
+    white-space:pre;
+    overflow:auto;
+    margin:25px 0;
+}
+
+.step{
+    background:#fafafa;
+    border:1px solid #e5e5e5;
+    padding:25px;
+    margin:30px 0;
+}
+
+.quote{
+    font-style:italic;
+    border-left:4px solid #ccc;
+    padding-left:20px;
+    margin:30px 0;
+}
+
+ul li{
+    margin-bottom:8px;
+}
+
+.checklist{
+    background:#fcfcfc;
+    border:1px dashed #aaa;
+    padding:20px;
+}
+
+footer{
+    margin-top:80px;
+    text-align:center;
+    color:#666;
+    font-size:.9rem;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>The Invisible Broadcast</h1>
+    <p>
+        A detailed guide to building a crystal radio receiver—
+        a machine capable of pulling voices, music, and information
+        directly out of the air using no batteries, no wall power,
+        and no amplification. The energy that drives the earphone
+        comes entirely from radio waves transmitted miles away.
+    </p>
+</header>
+
+<div class="container">
+
+<div class="callout">
+<strong>What you'll build:</strong><br>
+A functioning AM radio receiver capable of tuning local broadcast stations using only a coil, capacitor, diode, antenna, ground, and earphone.
+</div>
+
+<h2>Why This Project Matters</h2>
+
+<p>
+Most modern electronics hide their inner workings behind integrated circuits.
+A crystal radio does the opposite. Every component has a visible purpose.
+You can trace the path of information from a transmitter tower, through your antenna,
+into a tuning circuit, through a detector, and finally into your ear.
+</p>
+
+<p>
+This project sits at the intersection of physics, electrical engineering,
+communications technology, and history. By the end, you will have recreated
+the essential architecture of every radio receiver ever built.
+</p>
+
+<div class="quote">
+"A crystal radio is not impressive because it works.
+A crystal radio is impressive because it works with almost nothing."
+</div>
+
+<h2>How a Crystal Radio Works</h2>
+
+<p>
+Thousands of radio signals are constantly passing through your house.
+Your antenna intercepts them all simultaneously.
+The tuning circuit selects one frequency.
+The diode extracts the audio hidden within that signal.
+The earphone converts the tiny electrical energy into sound.
+</p>
+
+<div class="diagram">
+LONG WIRE ANTENNA
+        │
+        ▼
+ ┌─────────────┐
+ │ TUNING      │
+ │ CIRCUIT     │
+ │ (COIL +     │
+ │ CAPACITOR)  │
+ └──────┬──────┘
+        │
+        ▼
+   GERMANIUM
+     DIODE
+        │
+        ▼
+  CRYSTAL EARPHONE
+        │
+        ▼
+      GROUND
+</div>
+
+<h2>Shopping List</h2>
+
+<table class="parts-table">
+<tr>
+<th>Item</th>
+<th>Purpose</th>
+<th>Notes</th>
+</tr>
+
+<tr>
+<td>1N34A Germanium Diode</td>
+<td>Signal detector</td>
+<td>Essential. Use germanium, not silicon.</td>
+</tr>
+
+<tr>
+<td>365 pF Variable Capacitor</td>
+<td>Tuning control</td>
+<td>Often sold as AM radio tuning capacitors.</td>
+</tr>
+
+<tr>
+<td>Crystal or Piezo Earphone</td>
+<td>Audio output</td>
+<td>Regular earbuds usually fail.</td>
+</tr>
+
+<tr>
+<td>100 ft Magnet Wire</td>
+<td>Coil winding</td>
+<td>22–26 gauge recommended.</td>
+</tr>
+
+<tr>
+<td>2" PVC Pipe</td>
+<td>Coil form</td>
+<td>About 6 inches long.</td>
+</tr>
+
+<tr>
+<td>Wood Board</td>
+<td>Mounting surface</td>
+<td>Any scrap wood works.</td>
+</tr>
+
+<tr>
+<td>Hookup Wire</td>
+<td>Connections</td>
+<td>Optional but useful.</td>
+</tr>
+</table>
+
+<h2>Step 1: Build the Tuning Coil</h2>
+
+<div class="step">
+
+<h3>What You're Doing</h3>
+
+<p>
+The coil is an inductor.
+Combined with the capacitor, it forms a resonant circuit.
+This is what allows the radio to select one station out of thousands.
+</p>
+
+<h3>Instructions</h3>
+
+<ol>
+<li>Cut a 6-inch section of 2-inch PVC pipe.</li>
+<li>Drill two tiny holes near one end.</li>
+<li>Thread magnet wire through and secure it.</li>
+<li>Wind 90 turns tightly around the pipe.</li>
+<li>Keep each turn touching the previous one.</li>
+<li>Leave 6 inches free at both ends.</li>
+<li>Scrape insulation off the exposed ends.</li>
+</ol>
+
+</div>
+
+<h2>Step 2: Create the Baseboard</h2>
+
+<div class="step">
+
+<p>
+Mount all components to a board so the radio becomes a durable instrument
+rather than a temporary experiment.
+</p>
+
+<ul>
+<li>Attach the coil.</li>
+<li>Attach the variable capacitor.</li>
+<li>Add screw terminals for antenna and ground.</li>
+<li>Leave room for future upgrades.</li>
+</ul>
+
+</div>
+
+<h2>Step 3: Build the Resonant Circuit</h2>
+
+<div class="step">
+
+<p>
+Connect each end of the coil to the two terminals of the tuning capacitor.
+</p>
+
+<p>
+Together these create an LC resonant circuit.
+Changing the capacitor value shifts the resonant frequency,
+allowing different stations to be selected.
+</p>
+
+</div>
+
+<h2>Step 4: Install the Detector</h2>
+
+<div class="step">
+
+<p>
+The radio wave arriving at the antenna oscillates hundreds of thousands
+of times per second. Your ear cannot detect this.
+</p>
+
+<p>
+The diode removes half the waveform and reveals the slower audio variations
+hidden inside.
+</p>
+
+<ol>
+<li>Connect one end of the diode to the tuning circuit.</li>
+<li>Point the banded side toward the earphone.</li>
+</ol>
+
+</div>
+
+<h2>Step 5: Connect the Earphone</h2>
+
+<div class="step">
+
+<p>
+Crystal radios generate extremely little power.
+Every microwatt matters.
+</p>
+
+<ul>
+<li>Use a crystal or piezo earphone.</li>
+<li>Connect the diode output to one earphone lead.</li>
+<li>Connect the other lead to ground.</li>
+</ul>
+
+</div>
+
+<h2>Step 6: Build a Serious Antenna</h2>
+
+<div class="step">
+
+<p>
+Most failed crystal radios are actually failed antennas.
+</p>
+
+<p>
+For Alexandria, Virginia, antenna quality will determine whether the radio
+is merely functional or genuinely impressive.
+</p>
+
+<h3>Minimum</h3>
+
+<p>30 feet of wire.</p>
+
+<h3>Good</h3>
+
+<p>75 feet of wire.</p>
+
+<h3>Excellent</h3>
+
+<p>100–150 feet of wire.</p>
+
+<h3>Placement Ideas</h3>
+
+<ul>
+<li>Attic ridge line</li>
+<li>Fence perimeter</li>
+<li>Tree to house</li>
+<li>Roof edge</li>
+<li>Backyard support poles</li>
+</ul>
+
+</div>
+
+<h2>Step 7: Establish Ground</h2>
+
+<div class="step">
+
+<p>
+The ground connection completes the circuit and dramatically improves signal strength.
+</p>
+
+<h3>Best</h3>
+
+<p>Dedicated copper ground rod.</p>
+
+<h3>Very Good</h3>
+
+<p>Metal cold-water pipe.</p>
+
+<h3>Acceptable</h3>
+
+<p>Electrical outlet ground.</p>
+
+</div>
+
+<h2>First Stations to Hunt in Alexandria</h2>
+
+<table class="parts-table">
+<tr>
+<th>Frequency</th>
+<th>Station</th>
+<th>Why Try It</th>
+</tr>
+
+<tr>
+<td>1500 AM</td>
+<td>WFED</td>
+<td>Strong 50 kW signal and likely easiest target.</td>
+</tr>
+
+<tr>
+<td>630 AM</td>
+<td>WMAL</td>
+<td>Reliable local signal.</td>
+</tr>
+
+<tr>
+<td>980 AM</td>
+<td>WTEM</td>
+<td>Good signal strength in the region.</td>
+</tr>
+
+<tr>
+<td>780 AM</td>
+<td>WAVA</td>
+<td>Close transmitter location.</td>
+</tr>
+
+<tr>
+<td>1090 AM</td>
+<td>WBAL</td>
+<td>Often strong after dark.</td>
+</tr>
+</table>
+
+<h2>Troubleshooting</h2>
+
+<div class="checklist">
+
+<h3>No Sound</h3>
+
+<ul>
+<li>Check diode orientation.</li>
+<li>Verify earphone type.</li>
+<li>Confirm insulation is removed from coil ends.</li>
+<li>Test all wire connections.</li>
+</ul>
+
+<h3>Weak Reception</h3>
+
+<ul>
+<li>Improve ground.</li>
+<li>Lengthen antenna.</li>
+<li>Move antenna away from electronics.</li>
+</ul>
+
+<h3>Only Static</h3>
+
+<ul>
+<li>Rotate tuning capacitor slowly.</li>
+<li>Try after sunset.</li>
+<li>Inspect coil wiring.</li>
+</ul>
+
+</div>
+
+<h2>The Moment It Comes Alive</h2>
+
+<p>
+At some point you'll be turning the tuning capacitor slowly and a voice
+will emerge from the background noise.
+No batteries.
+No USB cable.
+No amplifier.
+No hidden electronics.
+</p>
+
+<p>
+Just a wire in the air harvesting energy from a transmitter miles away.
+</p>
+
+<p>
+That moment is the reason crystal radios have fascinated experimenters
+for more than a century.
+</p>
+
+<h2>Future Upgrades</h2>
+
+<ul>
+<li>Add coil taps for finer tuning.</li>
+<li>Build a foxhole detector.</li>
+<li>Add a second tuned circuit.</li>
+<li>Create a regenerative receiver.</li>
+<li>Experiment with nighttime long-distance reception.</li>
+<li>Build a polished wooden cabinet.</li>
+<li>Add brass hardware and analog dial indicators.</li>
+</ul>
+
+<footer>
+The Invisible Broadcast • Crystal Radio Construction Guide
+</footer>
+
+</div>
+</body>
+</html>
